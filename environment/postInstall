@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+set -e
+
+cd /opt
+mkdir odbc_package
+cd odbc_package
+wget https://dlm.mariadb.com/2909855/Connectors/odbc/connector-odbc-3.1.18/mariadb-connector-odbc-3.1.18-ubuntu-jammy-amd64.tar.gz
+tar -xvzf mariadb-connector-odbc-3.1.18-ubuntu-jammy-amd64.tar.gz
+cd mariadb-connector-odbc-3.1.18-ubuntu-jammy-amd64
+install -d /usr/lib/mariadb/
+install lib/mariadb/libmaodbc.so /usr/lib/
+install lib/mariadb/libmariadb.so.3 /usr/lib/
+install -d /usr/lib/mariadb/plugin/
+install lib/mariadb/plugin/mysql_clear_password.so /usr/lib/mariadb/plugin/
+install lib/mariadb/plugin/sha256_password.so /usr/lib/mariadb/plugin/
+install lib/mariadb/plugin/caching_sha2_password.so /usr/lib/mariadb/plugin/
+install lib/mariadb/plugin/dialog.so /usr/lib/mariadb/plugin/
+install lib/mariadb/plugin/client_ed25519.so /usr/lib/mariadb/plugin/
+
+echo '[MySQL Driver]
+Description = MySQL driver for GNU/Linux
+Driver      = /usr/lib/libmaodbc.so' > /etc/odbcinst.ini

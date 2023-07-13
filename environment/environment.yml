@@ -1,0 +1,7 @@
+environment_version: 1
+credentials:
+- type: database
+  id: wNrOkP6jWbzivU
+  description: mysql example
+  username: DATABASE_USERNAME
+  password: DATABASE_PASSWORD
